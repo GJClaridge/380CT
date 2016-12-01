@@ -44,10 +44,13 @@ class SSP():
         candidate = []
         total = 0
         while total < self.t:
-            listchange = greedlist.pop()
-            candidate.append(listchange)
-            total = sum(candidate)
-            print( "Trying: ", candidate, ", sum:", total )
+            if greedlist[-1] > self.t:
+                greedlist.pop()
+            else:
+                listchange = greedlist.pop()
+                candidate.append(listchange)
+                total = sum(candidate)
+                print( "Trying: ", candidate, ", sum:", total )
         if total == self.t:
             print( candidate, " adds up to:", total )
         else:
