@@ -37,7 +37,22 @@ class SSP():
             total     = sum(candidate)
             print( "Trying: ", candidate, ", sum:", total )
             
-
+    def greedy(self):
+        self.S.sort()
+        greedlist = self.S
+        listchange = 0
+        candidate = []
+        total = 0
+        while total < self.t:
+            listchange = greedlist.pop()
+            candidate.append(listchange)
+            total = sum(candidate)
+            print( "Trying: ", candidate, ", sum:", total )
+        if total == self.t:
+            print( candidate, " adds up to:", total )
+        else:
+            print( candidate, " did not add up to:", total)
+    
 instance = SSP()
 instance.random_yes_instance(4)
 print( instance )
