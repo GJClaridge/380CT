@@ -1,6 +1,7 @@
 from random import randint, sample
 from itertools import chain, combinations
 from time import time
+import time
 
 class SSP():
     def __init__(self, S=[], t=0):
@@ -34,6 +35,7 @@ class SSP():
 
     def try_at_random(self):
         """ This randomly tries different subsets to see if there is any combination that solves the problem. """
+        start = time.clock()
         candidate = []
         total = 0
         while total != self.t:
@@ -42,6 +44,8 @@ class SSP():
             print("(Random) Trying: ", candidate, ", sum:", total)
             if total == self.t:
                 print("Success!")
+        end = time.clock()
+        print (end - start)
             
     def greedy(self): #Fixed previous flaw, but breaks sometimes now. Will solve on Friday.
         """ This takes the largest number smaller than the target and then adds smaller number to attempt to find a soloution. """
