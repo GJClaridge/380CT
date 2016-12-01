@@ -43,14 +43,14 @@ class SSP():
             if total == self.t:
                 print("Success!")
             
-    def greedy(self): #Mostly there but flawed. Will solve on Friday.
+    def greedy(self): #Fixed previous flaw, but breaks sometimes now. Will solve on Friday.
         """ This takes the largest number smaller than the target and then adds smaller number to attempt to find a soloution. """
         self.S.sort()
         greedlist = self.S
         listchange = 0
         candidate = []
         total = 0
-        while total < self.t:
+        while total != self.t:
             if greedlist[-1] > self.t:
                 greedlist.pop()
             else:
@@ -58,10 +58,12 @@ class SSP():
                 candidate.append(listchange)
                 total = sum(candidate)
                 print("(Greedy) Trying: ", candidate, ", sum:", total)
+                if total > self.t:
+                    candidate.pop()
         if total == self.t:
-            print("Success!" , candidate, " adds up to:", total)
+            print("Success!" , candidate, " adds up to:", self.t)
         else: 
-            print("Failure" , candidate, "did not add up to:", total)
+            print("Failure" , candidate, "did not add up to:", self.t)
     """ 
     def brute(self):
         self.S.sort()
