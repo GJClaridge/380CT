@@ -4,15 +4,18 @@ from time import time
 
 class SSP():
     def __init__(self, S=[], t=0):
-        self.S = S
-        self.t = t
-        self.n = len(S)
+    """ This is the function which initialises the SSP object, which
+        creates the variables required """
+        self.S = S              # This is the variable for the set.
+        self.t = t              # This is the variable for the target.
+        self.n = len(S)         # This is the variable for the length of the set.
         #
         self.decision = False
         self.total    = 0
         self.selected = []
 
     def __repr__(self):
+    """ This is a function used to return a printable representation of the object """
         return "SSP instance: S="+str(self.S)+"\tt="+str(self.t)
     
     def random_instance(self, n, bitlength=10):
