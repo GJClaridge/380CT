@@ -68,28 +68,24 @@ class SSP():
             print("Success!" , candidate, " adds up to:", self.t)
         else: 
             print("Failure" , candidate, "did not add up to:", self.t)
-    """ 
-    def brute(self):
-        self.S.sort()
-        brutelist = self.S
-        
-        listchange = 0
+    def exhaustive(self):
+        start = time.clock()
         total = 0
-        print(brutelist)
-        while brutelist != []:
-            candidate = []
-            listchange = brutelist[0]
-            candidate.append(listchange)
-            total = sum(candidate)
-            print( candidate, " did not add up to:", self.t)
-            for i in brutelist[1:]:
-                candidate = []
-                print(i)
-                candidate.append(listchange)
-                candidate.append(i)
-                total = sum(candidate)
-                print( candidate, " did not add up to:", self.t)     
-             """   
+        subsets = [[]]
+        next = []
+        for j in self.S:
+            for i in subsets:
+                next.append(i + [j])
+            subsets += next
+            next =[]
+        print (subsets)
+        for i in subsets:
+            total = sum(i)
+            if total == self.t:
+                print (i, " is subset of ", self.S, "that equals ", self.t)
+                end = time.clock()
+                print (end - start)
+                break
                 
 instance = SSP()
 instance.random_yes_instance(4)
@@ -97,3 +93,4 @@ print(instance)
 
 instance.try_at_random()
 instance.greedy()
+instance.exhaustive()
