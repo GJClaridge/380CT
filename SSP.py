@@ -87,6 +87,27 @@ class SSP():
                 print (end - start)
                 break
                 
+def subsetsum( array , num):
+    if num == 0 or num < 1:
+        print("a")
+    elif len(array) == 0:
+        print("b")
+    else:
+        if array[0] == num:
+            print(array)
+            return [array[0]]
+        else:
+            with_v = subsetsum(array[1:],(num - array[0])) 
+            if with_v:
+                print(array)
+                return [array[0]] + with_v
+            else:
+                print("c")
+                return subsetsum(array[1:],num)
+subset = [100, 50, 300, 400]
+lengt = 700
+subsetsum(subset, lengt)
+
 instance = SSP()
 instance.random_yes_instance(4)
 print(instance)
