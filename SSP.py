@@ -87,6 +87,33 @@ class SSP():
                 print (end - start)
                 break
                 
+    def dynamic(self):
+        values = []
+        valuescopy = []
+        counter = 0
+        start = time.clock()
+        for i in self.S:
+            #print("i",i)
+            if values == []:
+                values.append(i)
+            else:
+                valuescopy = copy.copy(values)
+                #print ("length",len(valuescopy))
+                while counter < len(valuescopy):
+                    #print(len(valuescopy), " ", counter)
+                    values.append(valuescopy[counter] + i)
+                    if valuescopy[counter] +i == self.t:
+                        print ("Target value found using subset of ", self.S)
+                        break
+                    #print("values",values)
+                    counter += 1
+                values.append(i)
+                counter = 0
+        print(values)
+        end = time.clock()
+        print (end - start)
+        
+        
 instance = SSP()
 instance.random_yes_instance(4)
 print(instance)
@@ -94,3 +121,4 @@ print(instance)
 instance.try_at_random()
 instance.greedy()
 instance.exhaustive()
+instance.dynamic()
