@@ -54,7 +54,7 @@ class SSP():
         listchange = 0
         candidate = []
         total = 0
-        while total != self.t:
+        while total != self.t and greedlist != []:
             if greedlist[-1] > self.t:
                 greedlist.pop()
             else:
