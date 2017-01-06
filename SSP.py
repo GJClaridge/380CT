@@ -2,6 +2,8 @@ from random import randint, sample
 from itertools import chain, combinations
 from time import time
 import time
+import copy
+import random
 
 class SSP():
     def __init__(self, S=[], t=0):
@@ -53,6 +55,7 @@ class SSP():
         greedlist = self.S
         listchange = 0
         candidate = []
+        replace = []
         total = 0
         while total != self.t and greedlist != []:
             if greedlist[-1] > self.t:
@@ -68,6 +71,45 @@ class SSP():
             print("Success!" , candidate, " adds up to:", self.t)
         else: 
             print("Failure" , candidate, "did not add up to:", self.t)
+
+    def grasp(self): #Fixed previous flaw, but breaks sometimes now. Will solve on Friday.
+        """ This takes the largest number smaller than the target and then adds smaller number to attempt to find a soloution. """
+        self.S.sort()
+        greedlist = self.S
+        listchange = 0
+        candidate = []
+        replace = []
+        total = 0
+        while total != self.t and greedlist != [] and total < self.t:
+            if greedlist[-1] > self.t:
+                greedlist.pop()
+            else:
+                listchange = greedlist.pop()
+                candidate.append(listchange)
+                total = sum(candidate)
+                print("(Greedy) Trying: ", candidate, ", sum:", total)
+        counter = 0
+        while counter < 5:
+            CanIndex = random.randint(0, len(candidate)-1)
+            GreedIndex = random.randint(0, len(greedlist)-1)
+            replacetotal = (total - candidate[CanIndex]) + greedlist[GreedIndex]
+            print (candidate[CanIndex])
+            print (greedlist[GreedIndex])
+            print (replacetotal)
+            if abs(self.t - total) > abs(self.t - replacetotal):
+                candidate[CanIndex] = greedlist[GreedIndex]
+                print("Replaced: ", candidate)
+                total = sum(candidate)
+            else:
+                print("replacement not more accurate")
+            counter+=1
+        
+        if total == self.t:
+            print("Success!" , candidate, " adds up to:", self.t)
+        else: 
+            print("Failure" , candidate, "did not add up to:", self.t)
+            print("It equaled ", total, "this is ", abs(self.t - total), " away.")
+            
     def exhaustive(self):
         start = time.clock()
         total = 0
@@ -115,10 +157,11 @@ class SSP():
         
         
 instance = SSP()
-instance.random_yes_instance(4)
+instance.random_yes_instance(10)
 print(instance)
 
 instance.try_at_random()
 instance.greedy()
+instance.grasp()
 instance.exhaustive()
 instance.dynamic()
